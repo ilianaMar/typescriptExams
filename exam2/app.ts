@@ -1,0 +1,1 @@
+console.log('Typescript is super .... and i am so happy!!!');

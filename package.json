@@ -1,0 +1,23 @@
+{
+  "name": "typescriptexam",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/ilianaMar/typescriptExams.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilianaMar/typescriptExams/issues"
+  },
+  "homepage": "https://github.com/ilianaMar/typescriptExams#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
