@@ -1,38 +1,62 @@
-// const add = (a: number, b: number) => { 
-//     return a + b;
+// type AddFn = (a:number, b: number) => number;
+
+interface AddFn {
+    (a:number, b: number): number;
+}
+
+let sum : AddFn;
+
+sum = (a:number, b: number) =>{
+    return a + b;
+}
+
+console.log(sum(90, 190));
+
+
+interface Greatable extends Named{
+    greeting(phase: string): void;
+}
+
+interface Named {
+    readonly name?: string;
+    outputedName?: string;
+}
+
+class Person implements Greatable {
+    static age = 30;
+    name?: string;
+    constructor(public n?: string){
+        if(n){
+            this.name = n;
+        }
+    }
+
+    greeting(phase: string): void {
+        if (this.name){
+            console.log(`${phase} ${this.name}`);
+        }else{
+            console.log(phase)
+        }
+        
+    }
+}
+
+let user1: Person;
+// user1 = {
+//     name: 'Iliana', 
+//     greeting(phase: string) {
+//         console.log(`${phase} ${this.name}`);
+//     } 
 // }
 
-// const add = (a: number, b: number = 4) => a + b;
+// user1.greeting('i am');
 
-// const printOutput: (a: number|string) => void = output => console.log(output);
+user1 = new Person('John');
+user1.greeting('hey who are you');
+console.log(user1);
 
-// printOutput(add(3));
+let user2 = new Person('Iliana');
+user2.greeting('Hi my name is')
 
-const submitButton = document.querySelector('button')!;
-if(submitButton){
-    submitButton.addEventListener('click', event =>console.log(event));
-}
-
-const arr1 = ['test', 'test1'];
-const arr2 = ['test2'];
-
-arr1.push(...arr2);
-console.log(arr1);
-
-const add = (...numbers: number[]) =>{
-    return numbers.reduce((curRes, curValue) => {
-        return curRes + curValue;
-    }, 0)
-}
-
-console.log(add(8, 9,89, 0.7));
-const [el1, el2, ...remainArr] = arr1;
-console.log(el1, el2, remainArr);
-
-const person = {
-    firstName: 'iliana', 
-    age: 38
-}
-
-const {firstName: userName, age} = person;
-console.log(userName, age);
+let user3 = new Person();
+user3.greeting('Hiii');
