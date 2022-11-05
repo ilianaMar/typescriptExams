@@ -1,62 +1,142 @@
-// type AddFn = (a:number, b: number) => number;
-
-interface AddFn {
-    (a:number, b: number): number;
+type Admin = {
+    names: string[];
+    previligies: string[];
 }
 
-let sum : AddFn;
+type Employee = {
+    name: string;
+    startDate: Date;
+}
 
-sum = (a:number, b: number) =>{
+type ElevatedEmployee = Admin & Employee;
+const e1: ElevatedEmployee = {
+    name: 'Iliana',
+    startDate: new Date(),
+    previligies: ['Creator'], 
+    names: ['name1']
+};
+
+type Combinable = number | string;
+type Numeric = number | boolean;
+
+type Universal = Combinable & Numeric;
+
+function calculate(a: number, b: number):number;
+function calculate(a: string, b: string):string;
+function calculate(a: number, b: string):string;
+function calculate(a: string, b: number):string;
+function calculate(a: Combinable, b: Combinable){
+    if (typeof a === 'string' || typeof b === 'string'){
+         return  a.toString() +  b.toString();
+    }
     return a + b;
 }
 
-console.log(sum(90, 190));
+type UnknownEmployee = Admin | Employee;
 
-
-interface Greatable extends Named{
-    greeting(phase: string): void;
+function printEmployeeInformation(emp: UnknownEmployee){
+  if ('previligies' in emp){
+    console.log(emp.previligies);
+  }
+  if('startDate' in emp){
+    console.log(emp.startDate);
+  }
 }
 
-interface Named {
-    readonly name?: string;
-    outputedName?: string;
-}
+printEmployeeInformation(e1);
 
-class Person implements Greatable {
-    static age = 30;
-    name?: string;
-    constructor(public n?: string){
-        if(n){
-            this.name = n;
-        }
-    }
-
-    greeting(phase: string): void {
-        if (this.name){
-            console.log(`${phase} ${this.name}`);
-        }else{
-            console.log(phase)
-        }
-        
+class Car {
+    drive(){
+        console.log('Driving ...');
     }
 }
 
-let user1: Person;
-// user1 = {
-//     name: 'Iliana', 
-//     greeting(phase: string) {
-//         console.log(`${phase} ${this.name}`);
-//     } 
-// }
+class Truck{
+    drive(){
+        console.log('Driving truck...');
+    }
 
-// user1.greeting('i am');
+    loadCargo(amount: number){
+        console.log('Load amount ...' + amount);
+    }
+}
 
-user1 = new Person('John');
-user1.greeting('hey who are you');
-console.log(user1);
+type Vihicle = Car | Truck;
 
-let user2 = new Person('Iliana');
-user2.greeting('Hi my name is')
+const v1 = new Car();
+const v2 = new Truck();
 
-let user3 = new Person();
-user3.greeting('Hiii');
+function userVehicle(vehicle: Vihicle){
+    vehicle.drive();
+    // if('loadCargo' in vehicle){
+    //     vehicle.loadCargo(1000);
+    // }
+
+    if(vehicle instanceof Truck){
+        vehicle.loadCargo(1000);
+    }
+}
+
+userVehicle(v1);
+userVehicle(v2);
+
+interface Bird {
+    type: 'bird';
+    flySpeed: number;
+}
+
+interface Horse {
+    type: 'horse';
+    runningSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+    let speed ;
+    switch(animal.type){
+        case 'bird':
+            speed = animal.flySpeed;
+            break;
+        case 'horse':
+            speed = animal.runningSpeed;
+            break;
+    }
+    console.log(`The speed is ${speed}`);
+}
+
+moveAnimal({type: 'bird', flySpeed: 1000});
+moveAnimal({type: 'horse', runningSpeed: 3000});
+
+const paragraph = document.getElementById('message-output');
+// const userInput = <HTMLInputElement>document.getElementById('user-input')!;
+// const userInput = document.getElementById('user-input')! as HTMLInputElement;
+// userInput.value= 'Hi';
+
+const userInput = document.getElementById('user-input');
+if(userInput){
+    (userInput as HTMLInputElement).value= 'Hi there ';
+}
+
+interface ErrorContainer{
+    [prop: string | number]: string;
+}
+
+const errorBag: ErrorContainer = {
+    email: 'Invalid Email',
+    username: 'Invalid username', 
+    1: '1 is not allowed'
+};
+
+console.log(errorBag);
+
+const fetchedUserData = {
+    name: 'iliana',
+    age: 38,
+    job: {title: 'QA', description: 'automation engineer'}
+};
+
+console.log(fetchedUserData?.job?.description);
+const input = '';
+const input1 = input ?? 'default';
+console.log(input1);
